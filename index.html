@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+    <meta charset="UTF-8">
+    <title>My father was a gambling man</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000; /* fallback background */
+        }
+
+        .card {
+            background: #020617; /* dark blue */
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0,0,0,0.6);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: max-content; /* card width adjusts to content */
+        }
+
+        .card-content {
+            display: flex;
+            align-items: stretch; /* images match card height */
+            gap: 20px;
+        }
+
+        .side-image {
+            flex: 0 0 auto; /* keep natural width */
+            width: 220px; /* increased width */
+            background-size: contain; /* full image visible */
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .side-left {
+            background-image: url('image1.png');
+        }
+
+        .side-right {
+            background-image: url('image2.png');
+        }
+
+        .main-inputs {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .field input {
+            width: 90%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        p {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            background: #22c55e;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #16a34a;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>My father was a gambling man!</h1>
+        <p>Unesi tajni kod i iznos novca (KM)</p>
+
+        <div class="card-content">
+            <div class="side-image side-left"></div>
+
+            <div class="main-inputs">
+                <div class="field">
+                    <label>Tajni kod</label>
+                    <input id="code" type="password" placeholder="----">
+                </div>
+                <div class="field">
+                    <label>Početni novac (KM)</label>
+                    <input id="money" type="number" placeholder="npr. 100">
+                </div>
+                <div class="field">
+                    <label>Cijena jedne igre (KM)</label>
+                    <input id="cost" type="number" value="5">
+                </div>
+                <div class="field">
+                    <label>Šansa za dobitak 10 KM (%)</label>
+                    <input id="c10" type="number" value="13">
+                </div>
+                <div class="field">
+                    <label>Šansa za dobitak 100 KM (%)</label>
+                    <input id="c100" type="number" value="6">
+                </div>
+                <div class="field">
+                    <label>Šansa za dobitak 1000 KM (%)</label>
+                    <input id="c1000" type="number" value="1">
+                </div>
+                <button onclick="login()">Uđi</button>
+                <p id="error" class="error"></p>
+            </div>
+
+            <div class="side-image side-right"></div>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            const code = document.getElementById("code").value;
+            const money = Number(document.getElementById("money").value);
+            const cost = Number(document.getElementById("cost").value);
+            const c10 = Number(document.getElementById("c10").value);
+            const c100 = Number(document.getElementById("c100").value);
+            const c1000 = Number(document.getElementById("c1000").value);
+
+            if (code !== "0000") {
+                document.getElementById("error").innerText = "Pogrešan kod.";
+                return;
+            }
+            if (money <= 0 || cost <= 0) {
+                document.getElementById("error").innerText = "Unesi validne brojeve.";
+                return;
+            }
+            if (c10 + c100 + c1000 > 100) {
+                document.getElementById("error").innerText = "Ukupna šansa ne smije biti veća od 100%.";
+                return;
+            }
+
+            localStorage.setItem("money", money);
+            localStorage.setItem("cost", cost);
+            localStorage.setItem("c10", c10);
+            localStorage.setItem("c100", c100);
+            localStorage.setItem("c1000", c1000);
+            window.location.href = "game.html";
+        }
+    </script>
+</body>
+</html>
