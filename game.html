@@ -2,15 +2,26 @@
 <html lang="bs">
 <head>
   <meta charset="UTF-8">
-  <title>The Lucky One – Igra</title>
+  <title>My father was a gambling man – Igra</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="card">
-    <h1>The Lucky One</h1>
-    <p>Trenutno stanje: <span id="balance">0</span> KM</p>
-    <p>Cijena jedne igre: <span id="cost">0</span> KM</p>
 
+<div class="layout">
+
+  <!-- LEFT: STATS -->
+  <div class="side">
+    <h3>Statistika</h3>
+    <canvas id="chart" width="200" height="120"></canvas>
+    <p id="profitText">Profit: 0 KM</p>
+  </div>
+
+  <!-- CENTER: GAME -->
+  <div class="card">
+    <h1>My father was a gambling man</h1>
+
+    <p>Trenutno stanje: <span id="balance">0</span> KM</p>
+    <p>Cijena igre: <span id="cost">0</span> KM</p>
 
     <div class="wheel-container">
       <img id="wheel" class="wheel" src="wheel.png" alt="Točak sreće">
@@ -22,6 +33,26 @@
     <p class="note">Ovo je samo igra, bez pravog novca.</p>
   </div>
 
-  <script src="script.js"></script>
+  <!-- RIGHT: AUTO -->
+  <div class="side">
+    <h3>Auto Gambler</h3>
+
+    <select id="mode">
+      <option value="manual">Manual</option>
+      <option value="target">Do vrijednosti</option>
+      <option value="counter">Broj igara</option>
+    </select>
+
+    <input id="targetValue" type="number" placeholder="Vrijednost / broj">
+
+    <button onclick="startAuto()">Pokreni</button>
+    <button onclick="stopAuto()">Stop</button>
+
+    <p id="autoStatus">Status: idle</p>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
