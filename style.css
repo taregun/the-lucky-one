@@ -1,0 +1,108 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("background.png") no-repeat center center;
+  background-size: cover;
+  filter: blur(8px);
+  transform: scale(1.1); /* avoids blur edges */
+  z-index: -2;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: -1;
+}
+
+
+.card {
+  background: #020617;
+  padding: 30px 40px;
+  border-radius: 15px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+h1 {
+  margin-bottom: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: none;
+}
+
+button {
+  margin-top: 12px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #22c55e;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #16a34a;
+}
+
+.error {
+  color: #f87171;
+  margin-top: 10px;
+}
+
+.wheel-container {
+  margin: 20px 0;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wheel {
+  width: 160px;
+  height: 160px;
+  transition: transform 1s ease;
+}
+
+.note {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-top: 15px;
+}
+
+.field {
+  text-align: left;
+  margin-top: 10px;
+}
+
+.field label {
+  display: block;
+  font-size: 13px;
+  opacity: 0.85;
+  margin-bottom: 3px;
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+  <meta charset="UTF-8">
+  <title>The Lucky One – Igra</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="card">
+    <h1>The Lucky One</h1>
+    <p>Trenutno stanje: <span id="balance">0</span> KM</p>
+    <p>Cijena jedne igre: <span id="cost">0</span> KM</p>
+
+
+    <div class="wheel-container">
+      <img id="wheel" class="wheel" src="wheel.png" alt="Točak sreće">
+    </div>
+
+    <button onclick="spin()">Zavrti točak</button>
+    <p id="result"></p>
+
+    <p class="note">Ovo je samo igra, bez pravog novca.</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
