@@ -2,6 +2,7 @@
 <html lang="bs">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My father was a gambling man – Igra</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -12,7 +13,7 @@
   <!-- LEFT: STATS -->
   <div class="side">
     <h3>Statistika</h3>
-    <canvas id="chart" width="200" height="120"></canvas>
+    <canvas id="chart" width="300" height="140"></canvas>
     <p id="profitText">Profit: 0 KM</p>
   </div>
 
@@ -27,7 +28,16 @@
       <img id="wheel" class="wheel" src="wheel.png" alt="Točak sreće">
     </div>
 
-    <button onclick="spin()">Zavrti točak</button>
+    <div class="controls-row">
+      <button id="spinBtn">Zavrti točak</button>
+
+      <label class="toggle-label">
+        <input id="animationToggle" type="checkbox">
+        <span class="toggle-ui"></span>
+        <span class="toggle-text">Animacija</span>
+      </label>
+    </div>
+
     <p id="result"></p>
 
     <p class="note">Ovo je samo igra, bez pravog novca.</p>
@@ -45,8 +55,8 @@
 
     <input id="targetValue" type="number" placeholder="Vrijednost / broj">
 
-    <button onclick="startAuto()">Pokreni</button>
-    <button onclick="stopAuto()">Stop</button>
+    <button id="startAutoBtn">Pokreni</button>
+    <button id="stopAutoBtn">Stop</button>
 
     <p id="autoStatus">Status: idle</p>
   </div>

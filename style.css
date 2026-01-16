@@ -11,7 +11,8 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
-  overflow: hidden;
+  overflow: auto;
+  background: #000;
 }
 
 /* BACKGROUND */
@@ -22,7 +23,7 @@ body::before {
   background: url("background.png") no-repeat center center;
   background-size: cover;
   filter: blur(8px);
-  transform: scale(1.1);
+  transform: scale(1.05);
   z-index: -2;
 }
 
@@ -41,6 +42,7 @@ body::after {
   justify-content: center;
   width: 95%;
   max-width: 1400px;
+  padding: 20px;
 }
 
 /* ALL PANELS SAME WIDTH */
@@ -49,17 +51,30 @@ body::after {
   background: #020617;
   border-radius: 15px;
   box-shadow: 0 0 25px rgba(0,0,0,0.6);
-  padding: 25px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* make layout responsive: stack on small screens */
+@media (max-width: 920px) {
+  .layout {
+    flex-direction: column;
+    gap: 14px;
+    align-items: stretch;
+  }
+
+  .side, .card {
+    width: 100%;
+  }
 }
 
 /* HEADER */
 h1 {
   font-size: 1.5rem;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 h3 {
@@ -70,7 +85,7 @@ h3 {
 input, select {
   width: 90%;
   padding: 8px;
-  margin: 6px 0;
+  margin: 8px 0;
   border-radius: 8px;
   border: none;
   background: #0f172a;
@@ -100,7 +115,7 @@ button:hover {
 
 /* WHEEL */
 .wheel-container {
-  margin: 20px 0;
+  margin: 12px 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -110,16 +125,92 @@ button:hover {
   width: 160px;
   height: 160px;
   transition: transform 1s ease;
+  will-change: transform;
+}
+
+/* increase wheel for larger screens */
+@media (min-width: 1100px) {
+  .wheel { width: 220px; height: 220px; }
 }
 
 /* CHART */
 #chart {
   background: #0f172a;
   border-radius: 8px;
+  width: 100%;
+  max-width: 320px;
 }
 
-.note {
-  font-size: 12px;
-  opacity: 0.7;
-  margin-top: 15px;
+/* small helper for result text */
+#result {
+  margin-top: 10px;
+  min-height: 1.2em;
+}
+
+/* controls row (spin + toggle) */
+.controls-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+/* toggle switch styling */
+.toggle-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+}
+
+.toggle-label input {
+  display: none;
+}
+
+.toggle-ui {
+  width: 40px;
+  height: 22px;
+  border-radius: 14px;
+  background: #293241;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.toggle-ui::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.18s ease;
+}
+
+.toggle-label input:checked + .toggle-ui {
+  background: #22c55e;
+}
+
+.toggle-label input:checked + .toggle-ui::after {
+  transform: translateX(18px);
+}
+
+.toggle-text {
+  font-size: 0.95rem;
+}
+
+/* small screen tweaks */
+@media (max-width: 420px) {
+  h1 { font-size: 1.1rem; }
+  .wheel { width: 120px; height: 120px; }
+  .toggle-ui { width: 36px; height: 20px; }
+  .toggle-ui::after { width: 14px; height: 14px; top: 3px; left: 3px; }
+  .controls-row { gap: 8px; }
 }

@@ -2,50 +2,32 @@
 <html lang="bs">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My father was a gambling man</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        body {
-            margin: 0;
-            min-height: 100vh;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #000; /* fallback background */
-        }
-
+        /* page-specific helpers */
         .card {
-            background: #020617; /* dark blue */
-            border-radius: 15px;
-            box-shadow: 0 0 25px rgba(0,0,0,0.6);
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: max-content; /* card width adjusts to content */
+            width: 880px;
+            max-width: calc(100% - 32px);
+            position: relative;
+            overflow: visible; /* allow side images to stick out */
         }
 
         .card-content {
+            align-items: center;
+            gap: 18px;
             display: flex;
-            align-items: stretch; /* images match card height */
-            gap: 20px;
+            flex-wrap: nowrap; /* keep left and right images visible */
         }
 
         .side-image {
-            flex: 0 0 auto; /* keep natural width */
-            width: 220px; /* increased width */
-            background-size: contain; /* full image visible */
+            flex: 0 0 auto;
+            width: 200px;
+            height: 200px;
+            background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-        }
-
-        .side-left {
-            background-image: url('image1.png');
-        }
-
-        .side-right {
-            background-image: url('image2.png');
         }
 
         .main-inputs {
@@ -54,40 +36,76 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            min-width: 260px;
+        }
+
+        .field {
+            width: 320px;
+            max-width: 100%;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
         }
 
         .field input {
-            width: 90%;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        p {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
+            width: 100%;
+            padding: 8px;
+            border-radius: 8px;
             border: none;
-            border-radius: 10px;
-            background: #22c55e;
-            color: black;
-            font-weight: bold;
-            cursor: pointer;
+            background: #0f172a;
+            color: white;
         }
 
-        button:hover {
-            background: #16a34a;
+        .side-left { background-image: url('image1.png'); }
+        .side-right { background-image: url('image2.png'); }
+
+        @media (max-width: 920px) {
+            /* On medium phones we shrink images but keep them on the sides */
+            .side-image {
+                width: 140px;
+                height: 140px;
+            }
+            .card {
+                max-width: calc(100% - 20px);
+            }
         }
 
-        .error {
-            color: red;
-            margin-top: 10px;
+        @media (max-width: 720px) {
+            /* On small phones: keep layout row but shrink side images a lot so they fit */
+            .card-content {
+                gap: 12px;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .side-image {
+                width: 88px;
+                height: 88px;
+                flex: 0 0 88px;
+            }
+
+            .main-inputs {
+                min-width: 180px;
+            }
+
+            .field {
+                width: 100%;
+            }
+
+            h1 { font-size: 1.2rem; }
+            button { width: 100%; }
+        }
+
+        @media (max-width: 420px) {
+            .side-image {
+                width: 72px;
+                height: 72px;
+                flex: 0 0 72px;
+            }
+            h1 { font-size: 1.05rem; }
         }
     </style>
 </head>
@@ -97,70 +115,76 @@
         <p>Unesi tajni kod i iznos novca (KM)</p>
 
         <div class="card-content">
-            <div class="side-image side-left"></div>
+            <div class="side-image side-left" role="img" aria-label="decor left"></div>
 
             <div class="main-inputs">
                 <div class="field">
-                    <label>Tajni kod</label>
+                    <label for="code">Tajni kod</label>
                     <input id="code" type="password" placeholder="----">
                 </div>
                 <div class="field">
-                    <label>Početni novac (KM)</label>
+                    <label for="money">Početni novac (KM)</label>
                     <input id="money" type="number" placeholder="npr. 100">
                 </div>
                 <div class="field">
-                    <label>Cijena jedne igre (KM)</label>
+                    <label for="cost">Cijena jedne igre (KM)</label>
                     <input id="cost" type="number" value="5">
                 </div>
                 <div class="field">
-                    <label>Šansa za dobitak 10 KM (%)</label>
+                    <label for="c10">Šansa za dobitak 10 KM (%)</label>
                     <input id="c10" type="number" value="13">
                 </div>
                 <div class="field">
-                    <label>Šansa za dobitak 100 KM (%)</label>
+                    <label for="c100">Šansa za dobitak 100 KM (%)</label>
                     <input id="c100" type="number" value="6">
                 </div>
                 <div class="field">
-                    <label>Šansa za dobitak 1000 KM (%)</label>
+                    <label for="c1000">Šansa za dobitak 1000 KM (%)</label>
                     <input id="c1000" type="number" value="1">
                 </div>
-                <button onclick="login()">Uđi</button>
+                <button id="enterBtn">Uđi</button>
                 <p id="error" class="error"></p>
             </div>
 
-            <div class="side-image side-right"></div>
+            <div class="side-image side-right" role="img" aria-label="decor right"></div>
         </div>
     </div>
 
-    <script>
-        function login() {
-            const code = document.getElementById("code").value;
-            const money = Number(document.getElementById("money").value);
-            const cost = Number(document.getElementById("cost").value);
-            const c10 = Number(document.getElementById("c10").value);
-            const c100 = Number(document.getElementById("c100").value);
-            const c1000 = Number(document.getElementById("c1000").value);
+<script>
+document.getElementById('enterBtn').addEventListener('click', function login() {
+    const code = document.getElementById("code").value;
+    const money = Number(document.getElementById("money").value);
+    const cost = Number(document.getElementById("cost").value);
+    const c10 = Number(document.getElementById("c10").value);
+    const c100 = Number(document.getElementById("c100").value);
+    const c1000 = Number(document.getElementById("c1000").value);
+    const errorEl = document.getElementById("error");
 
-            if (code !== "0000") {
-                document.getElementById("error").innerText = "Pogrešan kod.";
-                return;
-            }
-            if (money <= 0 || cost <= 0) {
-                document.getElementById("error").innerText = "Unesi validne brojeve.";
-                return;
-            }
-            if (c10 + c100 + c1000 > 100) {
-                document.getElementById("error").innerText = "Ukupna šansa ne smije biti veća od 100%.";
-                return;
-            }
+    errorEl.innerText = "";
 
-            localStorage.setItem("money", money);
-            localStorage.setItem("cost", cost);
-            localStorage.setItem("c10", c10);
-            localStorage.setItem("c100", c100);
-            localStorage.setItem("c1000", c1000);
-            window.location.href = "game.html";
-        }
-    </script>
+    if (code !== "0000") {
+        errorEl.innerText = "Pogrešan kod.";
+        return;
+    }
+    if (!Number.isFinite(money) || money <= 0 || !Number.isFinite(cost) || cost <= 0) {
+        errorEl.innerText = "Unesi validne brojeve.";
+        return;
+    }
+    if (c10 + c100 + c1000 > 100) {
+        errorEl.innerText = "Ukupna šansa ne smije biti veća od 100%.";
+        return;
+    }
+
+    localStorage.setItem("money", money);
+    localStorage.setItem("cost", cost);
+    localStorage.setItem("c10", c10);
+    localStorage.setItem("c100", c100);
+    localStorage.setItem("c1000", c1000);
+
+    if (localStorage.getItem("animation") === null) localStorage.setItem("animation", "1");
+
+    window.location.href = "game.html";
+});
+</script>
 </body>
 </html>
